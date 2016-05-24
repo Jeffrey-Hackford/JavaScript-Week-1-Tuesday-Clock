@@ -5,7 +5,6 @@ var minute;
 var ampm;
 
 $(document).ready(function(){
-  var newClock = new Clock();
   function clockUpdate(){
     $('#currentTime').html(moment().format('LTS'));
   }
@@ -15,8 +14,12 @@ $(document).ready(function(){
     $('#hour').append("<option value='" + i + "'>" + i + "</option>");
   }
 
-  for(var i = 1; i <= 60; i++){
-    $('#minute').append("<option value='" + i + "'>" + i + "</option>");
+  for(var i = 0; i <= 60; i++){
+    if (i < 10){
+      $('#minute').append("<option value='0" + i + "'>0" + i + "</option>");
+    } else {
+      $('#minute').append("<option value='" + i + "'>" + i + "</option>");
+    }
   }
 
   $('#alarm').submit(function(event){
@@ -24,9 +27,6 @@ $(document).ready(function(){
     var hour = $('#hour').val();
     var minute = $('#minute').val();
     var ampm = $("#ampm").val();
-    if (minute < 10){
-      minute = "0" + minute;
-    }
     $('#userDisplay').html("<h3>Your alarm is set for " + hour + ":" + minute + " " + ampm + "</h3>");
 
   function alarm(){
